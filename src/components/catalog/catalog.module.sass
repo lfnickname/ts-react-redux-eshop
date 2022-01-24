@@ -1,0 +1,53 @@
+.container
+    margin: 100px 25px
+    padding: 50px 0px
+
+    
+.wrapper
+    display: grid
+    grid-template-columns: 1fr 4fr
+    @media (max-width: 767px) 
+        grid-template-columns: 1fr
+
+.filter
+    margin: 25px
+    padding: 25px
+    border: 2px solid black
+    border-radius: 25px
+    max-height: 500px
+    min-width: 150px
+    @media (max-width: 767px)
+        display: none
+
+.itemlist
+    display: grid
+    text-align: center
+    grid-template-columns: repeat(4,minmax(200px, 1fr))
+    @media (max-width: 1200px) 
+        grid-template-columns: repeat(3,minmax(200px, 1fr))
+    @media (max-width: 850px) 
+        grid-template-columns: repeat(2,minmax(200px, 1fr))
+    @media (max-width: 767px) 
+        grid-template-columns: repeat(1,minmax(200px, 1fr))
+
+
+.mobfilter
+    display: none
+    @media (max-width: 767px)
+        display: inline
+
+.itemwrapper 
+    display: flex
+    flex-direction: column
+
+
+.pages
+    text-align: center
+    margin: 50px
+
+
+.activebutton
+    background-color: #7cff77
+
+.passivebutton
+    background-color: #ffffff

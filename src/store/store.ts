@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import basketSlice from './reducer/basketSlice';
 import dataSlice from './reducer/dataSlice';
 
 export const store = configureStore({
   reducer: {
     data: dataSlice,
+    basket: basketSlice,
   },
 });
 
