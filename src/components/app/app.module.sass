@@ -1,0 +1,41 @@
+.app 
+    font-family: 'Lato', sans-serif
+    display: grid
+    grid-template-columns: 1fr
+    grid-template-rows: 120px 1fr 6fr 120px
+    @media (max-width: 1200px)
+        grid-template-rows: 120px 1fr 6fr 120px
+    @media (max-width: 1024px) 
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 767px) 
+        grid-template-rows: 50px 1fr 50px
+
+
+
+    
+
+.head
+
+
+.body
+    height: 1400px
+
+
+.footer
+
+
+body 
+    margin: 0px
+
+
+.fixedback
+    display: none
+    @media (min-width: 1025px)
+        display: inline-block
+        background-image: url('../../img/furn3.png')
+        min-height: 500px
+        background-attachment: fixed
+        background-position: center
+        background-repeat: no-repeat
+        background-size: cover
+        margin: 50px 0px

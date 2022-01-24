@@ -1,0 +1,132 @@
+.wrapper
+
+.container
+    
+
+.nav
+    font-size: 18px
+    margin: 0px
+    padding: 0px
+    text-align: center
+    align-items: center
+    display: grid
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 1fr
+    grid-template-rows: repeat(2, 60px)
+    grid-template-areas:  "aa ph ti ti ti cur abb" "aa lo ab cat con se abb"
+    @media (max-width: 767px) 
+        display: none
+                            
+
+.phone 
+    grid-area: ph
+    
+
+.title
+    grid-area: ti
+    font-size: 30px    
+
+
+.currbasket
+    grid-area: cur
+
+
+.logo
+    grid-area: lo
+
+
+.about
+    grid-area: ab
+
+
+.catalog 
+    grid-area: cat
+
+
+.contact
+    grid-area: con
+
+
+.searcharea
+    grid-area: se
+    justify-self: center
+
+.searchinputwrapper
+    display: flex
+    flex-direction: row
+
+.searchinput
+    margin-right: 15px
+
+.phone, .logo, .about, .catalog, .contact
+    padding: 10px 15px
+    margin: 0px auto
+    cursor: pointer
+    &:hover 
+        color: #548df7
+
+
+.navMobile
+    display: none
+    @media (max-width: 767px)
+        padding: 0px 10px
+        height: 50px
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        background-color: white
+        position: fixed
+        text-align: center
+        align-items: center
+        top: 0
+        left: 0
+        right: 0
+        background-color: #474747
+
+.titleMobile 
+    color: #ffffff
+
+
+=size($h, $w)
+    height: $h
+    width: $w
+
+.inputGroup
+    position: relative
+    .searchmob
+        +size(15px, 15px)
+        background-color: #ffffff
+        border: 0
+        border-radius: 50%
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.15)
+        cursor: pointer
+        color: #ffffff
+        outline: none
+        padding: 5px
+        position: relative
+        transition: all 150ms cubic-bezier(0.2, 0.6, 0.252, 1.2)
+        ~ .bar
+            +size(4px, 15px)
+            background: #ffffff
+            border-radius: 4px
+            position: absolute
+            display: block
+            opacity: 1
+            right: -9px
+            top: 24px
+            transform: rotate(45deg)
+            transition: opacity 150ms ease	
+        &::placeholder
+            color: #fff
+        &:focus
+            +size(25px, 150px)
+            border-radius: 3px
+            color: #000000
+            cursor: initial
+            &::placeholder
+                color: #000000
+            ~.bar
+                box-shadow: none
+                opacity: 0
+                right: 0
+                top: 5px
