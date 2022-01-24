@@ -48,8 +48,8 @@ export const basketSlice = createSlice({
         }
     }
 }})
-export const {addToBasket} = basketSlice.actions;
+export const {addToBasket, removeFromBasket} = basketSlice.actions;
 
-export const selectData = (state: RootState) => state
+export const selectBasketData = (state: RootState) => state.basket.entities
 
 export default basketSlice.reducer;

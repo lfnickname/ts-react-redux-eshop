@@ -1,0 +1,29 @@
+.head
+    display: grid
+    grid-template-columns: 2fr 1fr 4fr 1fr 1fr
+    padding: 25px
+    @media (max-width: 767px)
+        grid-template-columns: 2fr 1fr 1fr 1fr
+
+.basket
+    display: flex
+    flex-direction: column
+    min-width: 250px
+    align-items: stretch
+    text-align: center
+
+
+.wrapper
+    margin: 100px 0px
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+
+.name, .subtitle, .price, .img
+    font-size: 24px
+    @media (max-width: 767px)
+        font-size: 16px
+
+.subtitle
+    @media (max-width: 767px)
+        display: none
