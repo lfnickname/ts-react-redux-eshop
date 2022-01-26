@@ -74,6 +74,7 @@ const Catalog: React.FC<CatalogProps> = () => {
     return (
         <div className={styles.container}>
             <div className={styles.mobfilter}>
+                
                 <select onChange={(e)=>switchType(e)}>
                     <option value=''>null</option>
                     <option value={'sofa'}>sofa</option>
@@ -99,12 +100,15 @@ const Catalog: React.FC<CatalogProps> = () => {
                     <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'green')} className={filter.includes('green') ? styles.activebutton : styles.passivebutton}>green</button>
                 </div>
                 <div className={styles.itemlist}>
-                    {data.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}
+                    {mock.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}
                 </div>
             </div>
+
+            
             <div className={styles.pages}>
                     {pageList.map(item=><span key={item}><button value={item} onClick={(e: React.MouseEvent)=>switchPage(e, item)}>{item}</button></span>)}
             </div>
+            
         </div>
     );
 }

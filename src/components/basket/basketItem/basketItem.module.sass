@@ -25,3 +25,44 @@
 .subtitle
     @media (max-width: 767px)
         display: none
+
+$var: 250px
+
+.notification 
+    text-align: center
+    min-width: $var
+    position: fixed
+    z-index: 1000
+    top: 10%
+    right: calc(50% - ($var)/2 - 20px)
+    background-color: rgba(255, 67, 67, 0.5)
+    animation: moveOpen 2s ease-out
+    -webkit-animation: moveOpen 2s ease-out
+    -moz-animation: moveOpen 2s ease-out
+    -o-animation: moveOpen 2s ease-out
+    animation: moveOpen 2s ease-out
+    @media (min-width:767px)
+        font-size: 36px
+        border: 1px solid green
+        padding: 20px
+        background-color: rgba(255, 67, 67, 0.5)
+        border-radius: 25px
+    @media (max-width:767px)
+        width: 200px
+        font-size: 36px
+        border: 1px solid green
+        padding: 20px
+        background-color: rgba(255, 67, 67, 0.5)
+        border-radius: 25px
+
+
+@keyframes moveOpen
+  0%
+    opacity: 0
+  25%
+    opacity: 1
+  50%
+    opacity: 1
+  100%
+    opacity: 0
+    display: none

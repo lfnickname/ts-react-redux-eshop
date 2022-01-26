@@ -1,0 +1,16 @@
+.container
+    margin: 100px 25px
+    padding: 50px 0px
+
+.wrapper
+
+.itemlist
+    display: grid
+    text-align: center
+    grid-template-columns: repeat(4,minmax(200px, 1fr))
+    @media (max-width: 1200px) 
+        grid-template-columns: repeat(3,minmax(200px, 1fr))
+    @media (max-width: 850px) 
+        grid-template-columns: repeat(2,minmax(200px, 1fr))
+    @media (max-width: 767px) 
+        grid-template-columns: repeat(1,minmax(200px, 1fr))

@@ -7,7 +7,7 @@ export interface product {
   name: string
   price: number
   subtitle: string
-  tag: [T: string]
+  tag: string[]
   type: string
   url: string
 }

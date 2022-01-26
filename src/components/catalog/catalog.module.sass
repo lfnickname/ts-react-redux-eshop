@@ -51,3 +51,33 @@
 
 .passivebutton
     background-color: #ffffff
+
+.notification 
+    text-align: center
+    min-width: 250px
+    position: fixed
+    z-index: 1000
+    top: 10%
+    right: calc(50% - 125px)
+    @media (min-width:1200px)
+        font-size: 36px
+        border: 1px solid green
+        padding: 20px
+        background-color: #62ff6a94
+        border-radius: 25px
+
+
+.noti-enter
+  opacity: 0
+
+.noti-enter-active 
+  opacity: 1
+  transition: opacity 500ms ease-in
+
+.noti-exit 
+  opacity: 1
+
+.noti-exit-active 
+  opacity: 0
+  transition: opacity 500ms ease-in
+

@@ -21,11 +21,13 @@ export interface dataState {
         [T: string]: boolean
     }
     entities: [T?: product] | any
+    totalPrice: number
 }
 
 const initialState: dataState = {
     idList: {},
-    entities: []
+    entities: [],
+    totalPrice: 0,
 }
 
 
@@ -38,6 +40,7 @@ export const basketSlice = createSlice({
       if (state.idList[targetId]!=true) {
           state.idList[targetId] = true
           state.entities = [...state.entities, action.payload]
+          state.totalPrice = state.totalPrice + action.payload.price
       }
     },
     removeFromBasket: (state, action: PayloadAction<product>) => {
@@ -45,11 +48,13 @@ export const basketSlice = createSlice({
         if (state.idList[targetId]==true) {
             state.idList[targetId] = false
             state.entities = [...state.entities.filter((item: product)=> item.id != targetId)]
+            state.totalPrice = state.totalPrice - action.payload.price
         }
-    }
+    },
 }})
 export const {addToBasket, removeFromBasket} = basketSlice.actions;
 
 export const selectBasketData = (state: RootState) => state.basket.entities
+export const selectBasketTotalPrice = (state: RootState) => state.basket.totalPrice
 
 export default basketSlice.reducer;

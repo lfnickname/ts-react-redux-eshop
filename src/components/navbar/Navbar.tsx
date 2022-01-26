@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './navbar.module.sass'
 import {ReactComponent as Cart} from '../../svg/cart.svg'
 import {ReactComponent as Currency} from '../../svg/currency.svg'
 import {ReactComponent as Sofa} from '../../svg/sofa.svg'
 import {ReactComponent as SearchSVG} from '../../svg/search.svg'
 import { Link } from 'react-router-dom';
+import {CurrencyContext} from '../../context/index'
+import { useNavigate } from "react-router-dom";
+
+
 
 interface NavbarProps {
 
 }
-
 const Navbar:React.FC<NavbarProps> = ({}) => {
+    const navigate = useNavigate()
+    const {currency, setCurrency} = useContext(CurrencyContext)
     const title: string = 'Company name'
-    const Search: React.FC= () => {
-        return (
-        <div className={styles.searchinputwrapper}>
-            <input className={styles.searchinput} id='searchinput'/>
-            <label htmlFor='searchinput'><SearchSVG width={24}/></label>
-        </div>
-        )
+
+
+const Search: React.FC= () => {
+    const [searchName, setSearchName] = useState<string>('')
+    function searchHandler (e: React.MouseEvent){
+        e.preventDefault()
+        navigate(`/catalog/search?name=${searchName}`)
+        console.log(searchName)
+
+    }
+    return (
+    <div className={styles.searchinputwrapper} onSubmit={(e: any)=>searchHandler(e)}>
+        <input value={searchName} onChange={event=>setSearchName(event.target.value)} className={styles.searchinput} id='searchinput'/>
+        <label onClick={(e)=>searchHandler(e)} htmlFor='searchinput'><SearchSVG width={24}/></label>
+    </div>
+    )
+    }
+
+    function switchCurrency (sign: string, name: string, rate: number) {
+        setCurrency([sign, name, rate])
     }
     return (
         <div className={styles.wrapper}>
@@ -36,15 +54,30 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
                 <div className={styles.nav}>
                     <span className={styles.phone}>8-123-456-78-90</span>
                     <span className={styles.title}>{title}</span>
-                    <span className={styles.currbasket}><Currency style={{marginRight: 25}} width={30}/><Link to={'/basket'}><Cart width={30}/></Link></span>
-                    <span className={styles.logo}><Sofa width={84}/></span>
-                    <span className={styles.about}><Link to={'/'}><span style={{color: '#000000'}}>About us</span></Link></span>
-                    <span className={styles.catalog}><Link to={'/'}><span className={styles.clearlink}>Catalog</span></Link></span>
+                    <span className={styles.currbasket}>
+                        <span className={styles.curr}>
+                            <span className={styles.currflex}>
+                                <Currency width={30}/>
+                                <span className={styles.currsign}>
+                                    USD
+                                </span>
+                            </span>
+                            <span className={styles.currselector}>
+                                <div className={styles.currcontent} onClick={()=>switchCurrency('$', 'USD', 1)}>$ USD</div>
+                                <div className={styles.currcontent} onClick={()=>switchCurrency('€', 'EUR', 0.8)}>€ EUR</div>
+                                <div className={styles.currcontent} onClick={()=>switchCurrency('₽', 'RUB', 78)}>₽ RUB</div>
+                            </span>
+                        </span>
+                        <Link to={'/basket'}><Cart width={30}/></Link></span>
+                    <span className={styles.logo}><Link to={'/'}><Sofa width={84}/></Link></span>
+                    <Link className={styles.about} to={'/'}><span>About us</span></Link>
+                    <Link className={styles.catalog} to={'/catalog'}><span className={styles.clearlink}>Catalog</span></Link>
                     <span className={styles.contact}>Contacts</span>
                     <span className={styles.searcharea}><Search/></span>
                 </div>
             </div>
         </div>
+        
     );
 }
 
