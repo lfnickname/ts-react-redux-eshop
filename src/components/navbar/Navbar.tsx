@@ -7,6 +7,8 @@ import {ReactComponent as SearchSVG} from '../../svg/search.svg'
 import { Link } from 'react-router-dom';
 import {CurrencyContext} from '../../context/index'
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from '../../hooks/hooks';
+import { switchSearching, wipePageData } from '../../store/reducer/dataSlice';
 
 
 
@@ -14,37 +16,38 @@ interface NavbarProps {
 
 }
 const Navbar:React.FC<NavbarProps> = ({}) => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {currency, setCurrency} = useContext(CurrencyContext)
     const title: string = 'Company name'
 
-
-const Search: React.FC= () => {
+    function switchCurrency (sign: string, name: string, rate: number) {
+        setCurrency([sign, name, rate])
+    }
     const [searchName, setSearchName] = useState<string>('')
     function searchHandler (e: React.MouseEvent){
+        dispatch(wipePageData())
         e.preventDefault()
         navigate(`/catalog/search?name=${searchName}`)
         console.log(searchName)
-
-    }
-    return (
-    <div className={styles.searchinputwrapper} onSubmit={(e: any)=>searchHandler(e)}>
-        <input value={searchName} onChange={event=>setSearchName(event.target.value)} className={styles.searchinput} id='searchinput'/>
-        <label onClick={(e)=>searchHandler(e)} htmlFor='searchinput'><SearchSVG width={24}/></label>
-    </div>
-    )
-    }
-
-    function switchCurrency (sign: string, name: string, rate: number) {
-        setCurrency([sign, name, rate])
+        dispatch(switchSearching([true, searchName]))
     }
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.navMobile}>
                     <span className={styles.searchMobile}>
-                    <div className={styles.inputGroup}>
-                        <input className={styles.searchmob}/>
+                    <div >
+                        <form className={styles.inputGroup} onSubmit={(e: any)=>searchHandler(e)}>
+                        <input
+                                className={styles.mobSearch}
+                                type='text'
+                                placeholder=''
+                                value={searchName} 
+                                onChange={event=>setSearchName(event.target.value)} 
+                                />
+                        <span className={styles.bar}/>
+                        </form>
                         <span className={styles.bar}></span>                   
                     </div>
                     </span>
@@ -73,7 +76,12 @@ const Search: React.FC= () => {
                     <Link className={styles.about} to={'/'}><span>About us</span></Link>
                     <Link className={styles.catalog} to={'/catalog'}><span className={styles.clearlink}>Catalog</span></Link>
                     <span className={styles.contact}>Contacts</span>
-                    <span className={styles.searcharea}><Search/></span>
+                    <span className={styles.searcharea}>
+                        <form className={styles.searchinputwrapper} onSubmit={(e: any)=>searchHandler(e)}>
+                            <input value={searchName} onChange={event=>setSearchName(event.target.value)} className={styles.searchinput} id='searchinput'/>
+                            <label onClick={(e)=>searchHandler(e)} htmlFor='searchinput'><SearchSVG width={24}/></label>
+                        </form>
+                    </span>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styles from './basket.module.sass'
 import { useAppSelector } from '../../hooks/hooks';
 import { selectBasketData, selectBasketTotalPrice } from '../../store/reducer/basketSlice';
@@ -8,11 +8,22 @@ import {CurrencyContext} from '../../context/index'
 
 const Basket: React.FC = () => {
     const basketList: product[] = useAppSelector(selectBasketData)
+    const [notStatus, setNotStatus] = useState<boolean>(false)
     const totalPrice: number = useAppSelector(selectBasketTotalPrice)
+
+    useEffect(()=>{
+        return () => {
+            if (notStatus === false) {
+                setNotStatus(true)
+                setTimeout(()=>{setNotStatus(false)}, 1900)
+            }
+        }
+    },[totalPrice])
     const {currency, setCurrency} = useContext<any>(CurrencyContext)
     console.log(currency)
     return (
         <div className={styles.wrapper}>
+            {notStatus ? <div className={styles.notification}>Removed from cart</div> : <div style={{display: 'none'}}></div>}
             {basketList[0] ?
             <div className={styles.basket}>
                 <div className={styles.head}>

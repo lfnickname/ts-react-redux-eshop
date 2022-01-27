@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { fetchProducts, selectData, dataState, selectPageList, selectCurrentPage, switchCurrentPage, product, wipePageData} from '../../store/reducer/dataSlice';
+import { fetchProducts, selectData, dataState, selectPageList, selectCurrentPage, switchCurrentPage, product, wipePageData, selectSearchingStatus, switchSearching} from '../../store/reducer/dataSlice';
 import styles from './catalog.module.sass'
 import CatalogItem from './catalogitem/CatalogItem';
+import Select from 'react-select';
+
 
 const mock = [{"id":1,"name":"Sofa","tag":["red","sofa"],"subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit","url":"https://hortika-mebel.ru/data/medium/19_20.png","price":150,"type":"sofa"},
 {"id":2,"name":"Sofa","tag":["blue","sofa"],"subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit","url":"https://divanchik.ru/upload/resize_cache/iblock/90f/1100_900_1d7a58ff99b324185ccb5ad5dfbdb5e85/90fd6b3339fa0868371b06a9b931ad4a.png","price":145,"type":"sofa"},
@@ -24,14 +27,26 @@ interface CatalogProps {
 type iFilter = string[]
 
 
-const Catalog: React.FC<CatalogProps> = () => {
+const Catalog: React.FC<CatalogProps> = ({}) => {
+    const location = useLocation()
     const [filter, setFilter] = useState<iFilter>([])
-    const [itemType, setItemType] = useState<string>()
+    const [itemType, setItemType] = useState<any>()
     const data: [T: product | null] = useAppSelector(selectData)
     const pageList = useAppSelector(selectPageList)
     const currentPage = useAppSelector(selectCurrentPage)
+    const searchingStatus = useAppSelector(selectSearchingStatus)
     const dispatch = useAppDispatch()
+    const options = [
+        { value: 'Sofa', label: 'Sofa' },
+        { value: 'Bed', label: 'Bed' },
+        { value: 'Armchair', label: 'Armchair' },
+      ];
+    console.log(searchingStatus)
     useEffect(()=>{
+        if (searchingStatus[0]) {
+            dispatch(wipePageData())
+            dispatch(switchSearching([false]))
+        }
         if (filter[0] && itemType!= null && itemType!= undefined) {
             console.log('TRY filtred and typed')
             dispatch(fetchProducts({count: 12, page: currentPage, filter: filter, type: itemType}))
@@ -48,7 +63,7 @@ const Catalog: React.FC<CatalogProps> = () => {
             console.log('TRY unfiltred')
             dispatch(fetchProducts({count: 12, page: currentPage}))
         }
-    }, [currentPage, filter, itemType])
+    }, [currentPage, filter, itemType, location])
     console.log(currentPage)
     console.log('filter = ', filter)
 
@@ -76,7 +91,7 @@ const Catalog: React.FC<CatalogProps> = () => {
             <div className={styles.mobfilter}>
                 
                 <select onChange={(e)=>switchType(e)}>
-                    <option value=''>null</option>
+                    <option value='' defaultChecked>Type</option>
                     <option value={'sofa'}>sofa</option>
                     <option value={'bed'}>bed</option>
                     <option value={'armchair'}>armchair</option>
@@ -95,9 +110,14 @@ const Catalog: React.FC<CatalogProps> = () => {
                         <option value={'bed'}>bed</option>
                         <option value={'armchair'}>armchair</option>
                     </select>
-                    <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'red')} className={filter.includes('red') ? styles.activebutton : styles.passivebutton}>red</button>
+                    {/* <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'red')} className={filter.includes('red') ? styles.activebutton : styles.passivebutton}>red</button>
                     <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'blue')} className={filter.includes('blue') ? styles.activebutton : styles.passivebutton}>blue</button>
-                    <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'green')} className={filter.includes('green') ? styles.activebutton : styles.passivebutton}>green</button>
+                    <button onClick={(e: React.MouseEvent)=>switchFilter(e, 'green')} className={filter.includes('green') ? styles.activebutton : styles.passivebutton}>green</button> */}
+                      <Select
+                            defaultValue={{value: '', label: 'Select type'}}
+                            onChange={setItemType}
+                            options={options}
+                        />
                 </div>
                 <div className={styles.itemlist}>
                     {mock.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}

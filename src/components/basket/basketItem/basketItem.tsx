@@ -11,20 +11,16 @@ interface basketItemProps {
 }
 
 const BasketItem: React.FC<basketItemProps> = ({item}) => {
-    const [notStatus, setNotStatus] = useState<boolean>(false)
+
     const {currency, setCurrency} = useContext<any>(CurrencyContext)
     const dispatch = useAppDispatch()
     function clickHandler (item: product) {
         dispatch(removeFromBasket(item))
-        if (notStatus === false) {
-            setNotStatus(!notStatus)
-            setTimeout(()=>{setNotStatus(false)}, 1900)
-        }
     }
     return (
         <div>
             <div>
-            {notStatus ? <div className={styles.notification}>Removed from cart</div> : <div style={{display: 'none'}}></div>}
+            
             </div>
             <div className={styles.container}>
                 <div className={styles.image}><img className={styles.img} src={item.url}/></div>

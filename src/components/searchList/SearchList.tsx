@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './searchlist.module.sass'
 import CatalogItem from '../catalog/catalogitem/CatalogItem';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { fetchProducts, product, selectCurrentPage, selectData, selectPageList, selectSearchingStatus, switchCurrentPage, switchSearching } from '../../store/reducer/dataSlice';
 
 const mock = [{"id":1,"name":"Sofa","tag":["red","sofa"],"subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit","url":"https://hortika-mebel.ru/data/medium/19_20.png","price":150,"type":"sofa"},
 {"id":2,"name":"Sofa","tag":["blue","sofa"],"subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit","url":"https://divanchik.ru/upload/resize_cache/iblock/90f/1100_900_1d7a58ff99b324185ccb5ad5dfbdb5e85/90fd6b3339fa0868371b06a9b931ad4a.png","price":145,"type":"sofa"},
@@ -16,11 +18,26 @@ const mock = [{"id":1,"name":"Sofa","tag":["red","sofa"],"subtitle":"Lorem ipsum
 {"id":12,"name":"Sofa","tag":["green","sofa"],"subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit","url":"https://loft-concept.ru/upload/iblock/d43/Divan_dvukhmestnyi_774_Velwish_green.png","price":165,"type":"sofa"}]
 
 const SearchList: React.FC = () => {
+    const data: [T: product | null] = useAppSelector(selectData)
+    const pageList = useAppSelector(selectPageList)
+    const currentPage = useAppSelector(selectCurrentPage)
+    const searchingStatus = useAppSelector(selectSearchingStatus)
+    const dispatch = useAppDispatch()
+    function switchPage (e: React.MouseEvent, page: number): void {
+        e.preventDefault()
+        dispatch(switchCurrentPage(page))
+    }
+    useEffect(()=>{
+        dispatch(fetchProducts({count: 12, page: currentPage, name: searchingStatus[1]}))
+    }, [currentPage, searchingStatus[1]])
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
                 <div className={styles.itemlist}>
-                    {mock.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}
+                    {data.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}
+                </div>
+                <div className={styles.pages}>
+                    {pageList.map(item=><span key={item}><button value={item} onClick={(e: React.MouseEvent)=>switchPage(e, item)}>{item}</button></span>)}
                 </div>
             </div>
         </div>

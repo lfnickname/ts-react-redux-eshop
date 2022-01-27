@@ -17,6 +17,7 @@ export interface dataState {
   totalPages: number
   pageList: number[]
   currentPage: number
+  searching: [A: boolean, B?: string]
 }
 
 const initialState: dataState = {
@@ -24,6 +25,7 @@ const initialState: dataState = {
   totalPages: 0,
   pageList: [],
   currentPage: 1,
+  searching: [false]
 }
 
 interface thunkProps {
@@ -31,6 +33,7 @@ interface thunkProps {
   page: number
   filter?: string[] | undefined
   type?: string | undefined
+  name?: string
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -57,6 +60,13 @@ export const fetchProducts = createAsyncThunk(
       console.log('typed dispatch')
       return data
     }
+    if (props.name) {
+      const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}&name=${props.name}`)
+      const data = await response.json()
+      console.log(data, response)
+      console.log('named dispatch')
+      return data
+    }
     else {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}`)
       const data = await response.json()
@@ -79,6 +89,9 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
+    switchSearching: (state, action: PayloadAction<[A: boolean, B?: string]>) => {
+      state.searching = action.payload
+    },
     switchCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
     },
@@ -100,11 +113,12 @@ export const dataSlice = createSlice({
       });
   },
 })
-export const {switchCurrentPage, wipePageData} = dataSlice.actions;
+export const {switchCurrentPage, wipePageData, switchSearching} = dataSlice.actions;
 
 export const selectData = (state: RootState) => state.data.entities;
 export const selectPages = (state: RootState) => state.data.totalPages;
 export const selectPageList = (state: RootState) => state.data.pageList;
 export const selectCurrentPage = (state: RootState) => state.data.currentPage;
+export const selectSearchingStatus = (state: RootState) => state.data.searching
 
 export default dataSlice.reducer;
