@@ -12,12 +12,12 @@ import {
 import Basket from '../basket/Basket';
 import {CurrencyContext} from '../../context/index'
 import SearchList from '../searchList/SearchList';
+import Footer from '../footer/Footer';
 
 
 
 const Mainpage = () => {
   return (
-    
       <div className={styles.app}>
         <Navbar/>
         <div className={styles.fixedback}></div>
@@ -25,34 +25,37 @@ const Mainpage = () => {
           <About/>
           <Catalog/>
         </div>
-        <div className={styles.footer}> footer</div>
+        <Footer/>
       </div>
   )
 }
 
 const BasketPage = () => {
   return (
-    <div className={styles.app}>
+    <div className={styles.app_basket_page}>
       <Navbar/>
       <Basket/>
+      <Footer/>
     </div>
   )
 }
 
 const CatalogPage = () => {
   return (
-    <div className={styles.app}>
+    <div className={styles.app_catalog_page}>
       <Navbar/>
       <Catalog/>
+      <Footer/>
     </div>
   )
 }
 
 const SearchPage = () => {
   return (
-    <div className={styles.app}>
+    <div className={styles.app_search_page}>
       <Navbar/>
       <SearchList/>
+      <Footer/>
     </div>
   )
 }

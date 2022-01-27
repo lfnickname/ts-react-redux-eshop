@@ -2,9 +2,48 @@
     font-family: 'Poppins', sans-serif
     display: grid
     grid-template-columns: 1fr
-    grid-template-rows: 120px 1fr 6fr 120px
+    grid-template-rows: 120px 1fr 3fr 120px
     @media (max-width: 1200px)
-        grid-template-rows: 120px 1fr 6fr 120px
+        grid-template-rows: 120px 1fr 3fr 120px
+    @media (max-width: 1024px) 
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 767px) 
+        grid-template-rows: 50px 1fr 50px
+
+
+.app_catalog_page
+    font-family: 'Poppins', sans-serif
+    display: grid
+    grid-template-columns: 1fr
+    grid-template-rows: 120px 1fr 120px
+    @media (max-width: 1200px)
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 1024px) 
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 767px) 
+        grid-template-rows: 50px 1fr 50px
+
+.app_basket_page
+    min-height: 1000px
+    font-family: 'Poppins', sans-serif
+    display: grid
+    grid-template-columns: 1fr
+    grid-template-rows: 120px 1fr 120px
+    @media (max-width: 1200px)
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 1024px) 
+        grid-template-rows: 120px 1fr 120px
+    @media (max-width: 767px) 
+        min-height: 900px
+        grid-template-rows: 50px 1fr 50px
+
+.app_search_page
+    font-family: 'Poppins', sans-serif
+    display: grid
+    grid-template-columns: 1fr
+    grid-template-rows: 120px 1fr 120px
+    @media (max-width: 1200px)
+        grid-template-rows: 120px 1fr 120px
     @media (max-width: 1024px) 
         grid-template-rows: 120px 1fr 120px
     @media (max-width: 767px) 

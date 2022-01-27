@@ -20,7 +20,7 @@ const Basket: React.FC = () => {
         }
     },[totalPrice])
     const {currency, setCurrency} = useContext<any>(CurrencyContext)
-    console.log(currency)
+    // console.log(currency)
     return (
         <div className={styles.wrapper}>
             {notStatus ? <div className={styles.notification}>Removed from cart</div> : <div style={{display: 'none'}}></div>}

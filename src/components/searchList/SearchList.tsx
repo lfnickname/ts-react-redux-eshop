@@ -37,8 +37,10 @@ const SearchList: React.FC = () => {
                     {data.map(item=> {if (item) {return <div key={item.id} className={styles.itemwrapper}><CatalogItem item={item}/></div>}})}
                 </div>
                 <div className={styles.pages}>
-                    {pageList.map(item=><span key={item}><button value={item} onClick={(e: React.MouseEvent)=>switchPage(e, item)}>{item}</button></span>)}
-                </div>
+                <span>
+                    {pageList.map(item=><span key={item}><button className={styles.page_button} value={item} onClick={(e: React.MouseEvent)=>switchPage(e, item)}>{item}</button></span>)}
+                </span>
+            </div>
             </div>
         </div>
     );

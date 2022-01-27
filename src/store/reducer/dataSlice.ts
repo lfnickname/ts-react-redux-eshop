@@ -42,36 +42,36 @@ export const fetchProducts = createAsyncThunk(
     if (props.filter && props.type) {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}&filter=${props.filter}&type=${props.type}`)
       const data = await response.json()
-      console.log(data, response)
-      console.log('filtred + typed dispatch')
+      // console.log(data, response)
+      // console.log('filtred + typed dispatch')
       return data
     }
     if (props.filter) {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}&filter=${props.filter}`)
       const data = await response.json()
-      console.log(data, response)
-      console.log('filtred dispatch')
+      // console.log(data, response)
+      // console.log('filtred dispatch')
       return data
     }
     if (props.type) {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}&type=${props.type}`)
       const data = await response.json()
-      console.log(data, response)
-      console.log('typed dispatch')
+      // console.log(data, response)
+      // console.log('typed dispatch')
       return data
     }
     if (props.name) {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}&name=${props.name}`)
       const data = await response.json()
-      console.log(data, response)
-      console.log('named dispatch')
+      // console.log(data, response)
+      // console.log('named dispatch')
       return data
     }
     else {
       const response = await fetch(`https://lfnn.site/API/products?count=${props.count}&page=${props.page}`)
       const data = await response.json()
-      console.log(data, response)
-      console.log('unfiltred dispatch')
+      // console.log(data, response)
+      // console.log('unfiltred dispatch')
       return data
     }
   }
@@ -106,7 +106,7 @@ export const dataSlice = createSlice({
       .addCase(fetchProducts.pending, (state: dataState, action: PayloadAction) => {;
       })
       .addCase(fetchProducts.fulfilled, (state: dataState, action: PayloadAction<[[T: product], number]>) => {
-        console.log(action)
+        // console.log(action)
         state.entities = action.payload[0]
         state.totalPages = action.payload[1]
         state.pageList = createArray(action.payload[1])

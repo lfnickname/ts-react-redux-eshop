@@ -29,7 +29,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
         dispatch(wipePageData())
         e.preventDefault()
         navigate(`/catalog/search?name=${searchName}`)
-        console.log(searchName)
+        // console.log(searchName)
         dispatch(switchSearching([true, searchName]))
     }
     return (
@@ -75,7 +75,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
                     <span className={styles.logo}><Link to={'/'}><Sofa width={84}/></Link></span>
                     <Link className={styles.about} to={'/'}><span>About us</span></Link>
                     <Link className={styles.catalog} to={'/catalog'}><span className={styles.clearlink}>Catalog</span></Link>
-                    <span className={styles.contact}>Contacts</span>
+                    <span className={styles.contact} onClick={()=>alert('Contacts section and nodemailer is not available yet')}>Contacts</span>
                     <span className={styles.searcharea}>
                         <form className={styles.searchinputwrapper} onSubmit={(e: any)=>searchHandler(e)}>
                             <input value={searchName} onChange={event=>setSearchName(event.target.value)} className={styles.searchinput} id='searchinput'/>
