@@ -1,3 +1,15 @@
+builded app: http://lfnn.site
+API: https://github.com/lfnickname/simpleapi
+
+
+stack: Frontend: React, redux, sass(адаптивно-отзывчивая верстка), typescript, react-router, общение с сервером (https://github.com/lfnickname/simpleapi) при помощи createAsyncThunk
+
+Реализована корзина, свитч валют, запросы с фильтрами на API, динамичная пагинация, поиск
+
+
+
+*****************************************************************************************************************************************************************************
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
