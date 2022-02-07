@@ -56,23 +56,18 @@ const Catalog: React.FC<CatalogProps> = ({}) => {
             dispatch(switchSearching([false]))
         }
         if (filter[0] && itemType!= null && itemType!= undefined) {
-            // console.log('TRY filtred and typed')
             dispatch(fetchProducts({count: 12, page: currentPage, filter: filter, type: itemType}))
         }
         else if (filter[0]) {
-            // console.log('TRY filtred')
             dispatch(fetchProducts({count: 12, page: currentPage, filter: filter}))
         }
         else if (itemType!= null && itemType!= undefined) {
-            // console.log('TRY typed', {itemType})
             dispatch(fetchProducts({count: 12, page: currentPage, type: itemType}))
         }
         else {
-            // console.log('TRY unfiltred')
             dispatch(fetchProducts({count: 12, page: currentPage}))
         }
     }, [currentPage, filter, itemType, location])
-    // console.log('filter = ', filter)
 
 
     function switchPage (e: React.MouseEvent, page: number): void {

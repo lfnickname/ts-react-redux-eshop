@@ -25,7 +25,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
         setCurrency([sign, name, rate])
     }
     const [searchName, setSearchName] = useState<string>('')
-    function searchHandler (e: React.MouseEvent){
+    function searchHandler (e: React.SyntheticEvent){
         dispatch(wipePageData())
         e.preventDefault()
         navigate(`/catalog/search?name=${searchName}`)
@@ -38,7 +38,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
                 <div className={styles.navMobile}>
                     <span className={styles.searchMobile}>
                     <div >
-                        <form className={styles.inputGroup} onSubmit={(e: any)=>searchHandler(e)}>
+                        <form className={styles.inputGroup} onSubmit={(e: React.SyntheticEvent)=>searchHandler(e)}>
                         <input
                                 className={styles.mobSearch}
                                 type='text'
@@ -77,7 +77,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
                     <Link className={styles.catalog} to={'/catalog'}><span className={styles.clearlink}>Catalog</span></Link>
                     <span className={styles.contact} onClick={()=>alert('Contacts section and nodemailer is not available yet')}>Contacts</span>
                     <span className={styles.searcharea}>
-                        <form className={styles.searchinputwrapper} onSubmit={(e: any)=>searchHandler(e)}>
+                        <form className={styles.searchinputwrapper} onSubmit={(e: React.SyntheticEvent)=>searchHandler(e)}>
                             <input value={searchName} onChange={event=>setSearchName(event.target.value)} className={styles.searchinput} id='searchinput'/>
                             <label onClick={(e)=>searchHandler(e)} htmlFor='searchinput'><SearchSVG width={24}/></label>
                         </form>
