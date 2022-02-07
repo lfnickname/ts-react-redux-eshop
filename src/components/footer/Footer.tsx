@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
                         <div>example@mail.io</div>
                     </span>
                     <span className={styles.rights}>
-                        <div className={styles.name}>© 2022 Navruzov Seyfedin</div>
+                        <div className={styles.name}>© 2022 Lorem</div>
                         <div className={styles.reverved}>not all right reserved</div>
                     </span>
                 </span>
